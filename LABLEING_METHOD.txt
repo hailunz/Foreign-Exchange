@@ -1,0 +1,21 @@
+Labeling_Method
+
+To predict USD direction
+time window = 1 hour
+timestamp = current date and time
+type = AUDUSD (this part is just for reference, can be deleted later)
+maxBid = maximum bid value within the time window
+minBid = minimum bid value within the time window
+avgBid = average bid value within the time window
+spread = average((ask-bid)/bid)
+self direction = 1 if average Bid of current time window is no less than the previous one, else 0;
+EURUSD direction = EURUSD’s self direction of the current time window
+GBPUSD direction = GBPUSD’s self direction of the current time window
+
+label = 1 if average Bid of next time window is no less than the current one, otherwise 0;
+
+feature[timestamp, type, maxBid, minBid, avgBid, avgSpread, direction compare to previous time,  EURUSD direction, GBPUSD direction], label[predicted direction]
+
+example:
+20150130-21	AUD/USD	0.77861	0.77578	0.777550298322	0.000457621616109	0	0	1	0
+
