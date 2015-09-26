@@ -1,5 +1,8 @@
 package decisionTree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -46,6 +49,42 @@ public class TreeNode {
             }
         }
     }
+
+    public void BFS(){
+        TreeNode root =this;
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if (root == null)
+            return ;
+        TreeNode last = root;
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        List<Integer> level = new ArrayList<Integer>();
+
+        while(!queue.isEmpty()){
+            TreeNode cur = queue.pop();
+            if (cur.left!=null)
+                queue.add(cur.left);
+            if (cur.right!=null)
+                queue.add(cur.right);
+            level.add(cur.feature);
+
+            if (cur == last){
+                res.add(level);
+                level = new ArrayList<Integer>();
+                last = queue.peekLast();
+            }
+        }
+
+        for(List<Integer> l : res){
+            for (int i : l) {
+                System.out.print(i);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+
+    }
+
 
 
 }

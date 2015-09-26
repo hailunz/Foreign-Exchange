@@ -2,36 +2,49 @@ package decisionTree;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+/**
+ * Hailun Zhu
+ * ID: hailunz
+ * Date: 9/25/15
+ */
 
 public class Main {
+
 
     public static void main(String[] args) throws IOException {
 
         // generate the decision tree
-        //String filename = "/Users/hailunzhu/cmu/course/11676/parseData/train";
-        String filename = "/Users/hailunzhu/Downloads/trainnew";
+        String filename = "/Users/hailunzhu/cmu/course/11676/parseData/train";
         ArrayList<Integer> set = new ArrayList<>();
         for(int i=0;i<6;i++){
             set.add(i);
         }
 	    TreeNode root = getNode(filename,set);
 
-        root.printTree();
+        root.BFS();
 
         // test the decision tree
-        String testFile = "/Users/hailunzhu/Downloads/testnew";
-       // String testFile = "/Users/hailunzhu/cmu/course/11676/parseData/test";
+        String testFile = "/Users/hailunzhu/cmu/course/11676/parseData/test";
         double correct = testTree(testFile,root);
+        System.out.println("Correctness:");
         System.out.println(correct);
     }
 
+    /**
+     * Get the Current feature node
+     * @param filename
+     * @param set0
+     * @return
+     * @throws IOException
+     */
     public static TreeNode getNode(String filename, ArrayList<Integer> set0) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         ArrayList<Integer> set = new ArrayList<>(set0);
         int n = set.size();
         TreeNode root = null;
 
+        // if the node is in the last level
         if (n==1){
             root = new TreeNode(set.get(0));
             String l = br.readLine();
@@ -57,10 +70,12 @@ public class Main {
                 }
                 l = br.readLine();
             }
+
+            // compute probability
             int x0,x1;
             double px0, px1,px0y0, px0y1, px1y0, px1y1;
             x0 = count[0] + count[1];
-            x1 = count[2] + count[2];
+            x1 = count[2] + count[3];
             px0y0 = (double) count[0]/x0;
             if (px0y0>= 0.5){
                 root.left = new TreeNode(0,true);
@@ -75,6 +90,7 @@ public class Main {
             }
             return root;
         }
+
 
         // x=0y=0, x=0,y=1, x=1y=0, x=1y=1;
         int [][]count = new int[n][4];
@@ -103,15 +119,14 @@ public class Main {
                 l = br.readLine();
             }
             br.close();
-            for(int i=0;i<n;i++)
-                System.out.println(Arrays.toString(count[i]));
 
+            // compute probability
             double[] prob = new double[n];
             int x0,x1;
             double px0, px1,px0y0, px0y1, px1y0, px1y1;
             for(int i=0;i<n;i++){
                 x0 = count[i][0] + count[i][1];
-                x1 = count[i][2] + count[i][2];
+                x1 = count[i][2] + count[i][3];
                 px0 = (double) x0/num;
                 px1 = 1.0 - px0;
                 px0y0 = (double) count[i][0]/x0;
@@ -132,7 +147,7 @@ public class Main {
             int curFeature = set.get(index);
             set.remove(index);
 
-            // read again split the file.
+            // read again and split the file.
             String leftFile = String.valueOf(curFeature) + "left";
             String rightFile = String.valueOf(curFeature) + "right";
             BufferedWriter left = new BufferedWriter(new FileWriter(leftFile));
@@ -166,6 +181,14 @@ public class Main {
         return root;
     }
 
+
+    /**
+     * testTree : use the decision tree to test test data
+     * @param filename
+     * @param root
+     * @return
+     * @throws IOException
+     */
     public static double testTree(String filename, TreeNode root) throws IOException {
         double res = 0.0;
         BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -187,6 +210,12 @@ public class Main {
         return res;
     }
 
+    /**
+     * get the current feature vector's label
+     * @param root
+     * @param line
+     * @return
+     */
     public static int getLabel(TreeNode root, String[] line){
         int label = 0;
         TreeNode node = root;
