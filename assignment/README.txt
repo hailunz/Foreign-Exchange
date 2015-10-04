@@ -13,6 +13,7 @@ decisionTree:
 	    - decisionTree:
 		- Main.java : 
 			include the function to generate the tree(getNode) and testTree
+			include the function to generate the random forest and testRandomForest.
 		- TreeNode.java:
 			TreeNode class
 	- out
