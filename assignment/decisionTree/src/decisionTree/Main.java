@@ -2,6 +2,9 @@ package decisionTree;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Hailun Zhu
@@ -14,21 +17,125 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        // generate the decision tree
-        String filename = "/Users/hailunzhu/cmu/course/11676/parseData/train";
-        ArrayList<Integer> set = new ArrayList<>();
-        for(int i=0;i<6;i++){
-            set.add(i);
-        }
-	    TreeNode root = getNode(filename,set);
-
-        root.BFS();
+        int N = 5;
+        String trainFile = "/Users/hailunzhu/cmu/course/11676/parseData/train";
+        ArrayList<TreeNode> forest = randomForest(N,trainFile);
 
         // test the decision tree
         String testFile = "/Users/hailunzhu/cmu/course/11676/parseData/test";
-        double correct = testTree(testFile,root);
-        System.out.println("Correctness:");
+
+        double correct = testRandomForest(testFile,forest);
+        System.out.println("Accuracy:");
         System.out.println(correct);
+
+        for(TreeNode root : forest){
+            root.BFS();
+            correct = testTree(testFile, root);
+            System.out.println(correct);
+        }
+
+    }
+
+    /**
+     * Add new features' set to the featureSet
+     * @param featureSet
+     * @param featureNum
+     * @return
+     */
+    public static boolean getFeature(HashSet<ArrayList<Integer>> featureSet, int featureNum){
+        Random ran = new Random();
+        ArrayList<Integer> set = new ArrayList<>();
+        HashSet<Integer> currentFeatures = new HashSet<>();
+        int x ;
+        int count = 0;
+        while(count<featureNum){
+            x = ran.nextInt(6);
+            while(currentFeatures.contains(x))
+                x = ran.nextInt(6);
+
+            currentFeatures.add(x);
+            set.add(x);
+            count++;
+        }
+
+        Collections.sort(set);
+        if (featureSet.contains(set)){
+            return false;
+        }else{
+            featureSet.add(set);
+        }
+        return true;
+    }
+
+    /**
+     * Get a list of root of the randomForest
+     * @param N
+     * @param filename
+     * @return
+     * @throws IOException
+     */
+    public static ArrayList<TreeNode> randomForest(int N,String filename) throws IOException {
+
+        int featureNum = 3;
+        HashSet<ArrayList<Integer>> featureSet = new HashSet<>();
+        ArrayList<TreeNode> forest = new ArrayList<>();
+
+        for(int i=0;i<N;){
+           if (getFeature(featureSet,featureNum)){
+               i++;
+           }
+        }
+
+        for(ArrayList<Integer> set : featureSet){
+            TreeNode root = getNode(filename,set);
+            forest.add(root);
+        }
+
+        return forest;
+    }
+
+    /**
+     * testRandomForest
+     * @param filename
+     * @param forest
+     * @return
+     * @throws IOException
+     */
+    public static double testRandomForest(String filename, ArrayList<TreeNode> forest) throws IOException {
+        double res = 0.0;
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        String l = br.readLine();
+        String line[] = null;
+        int correct = 0;
+        int count = 0;
+        int realLabal = 0;
+        int testLabel = 0;
+
+        int count0 = 0;
+        int count1 = 0;
+
+        while(l != null){
+            count0 = 0;
+            count1 = 0;
+            count++;
+            line = l.split("\t");
+            realLabal = Integer.parseInt(line[6]);
+
+            for(TreeNode root : forest){
+                testLabel = getLabel(root,line);
+                if (testLabel == 1)
+                    count1++;
+                else
+                    count0++;
+            }
+
+            testLabel = count1 >= count0 ? 1: 0;
+            correct += realLabal == testLabel ?1:0;
+            l = br.readLine();
+        }
+        res = (double) correct/count;
+        br.close();
+        return res;
     }
 
     /**
@@ -207,6 +314,7 @@ public class Main {
             l = br.readLine();
         }
         res = (double) correct/count;
+        br.close();
         return res;
     }
 
