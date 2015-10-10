@@ -59,14 +59,18 @@ public class TreeNode {
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         List<Integer> level = new ArrayList<Integer>();
-
+        List<Integer> leaf = new ArrayList<>();
         while(!queue.isEmpty()){
             TreeNode cur = queue.pop();
             if (cur.left!=null)
                 queue.add(cur.left);
             if (cur.right!=null)
                 queue.add(cur.right);
-            level.add(cur.feature);
+            if (cur.isLabel)
+                leaf.add(cur.label);
+            else
+                level.add(cur.feature);
+
 
             if (cur == last){
                 res.add(level);
@@ -82,6 +86,15 @@ public class TreeNode {
             }
             System.out.println();
         }
+
+        for (int i : leaf) {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+
+        System.out.println();
+
+
 
     }
 
