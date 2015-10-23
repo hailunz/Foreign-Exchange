@@ -96,10 +96,9 @@ def getSiftCount(nameFileImage):
     else:
         return len(k)
 
-def getMahatosFeature(nameFileImage):
-    image2 = mh.imread('64.jpg', as_grey=True)
+def getMahotasFeature(nameFileImage):
+    image2 = mh.imread(nameFileImage, as_grey=True)
     lbp = mh.features.lbp(image2, radius=20, points=7, ignore_zeros=False)
-    pftas = mh.features.pftas(image2)
     zernike_moments = mh.features.zernike_moments(image2, radius=20, degree=8)
     return lbp, zernike_moments
 
@@ -146,7 +145,7 @@ def readingImage(train, namesClasses, directory_names,
 
                 image = resize(image, (maxPixel, maxPixel))
 
-                #lbp, moments = getMahatosFeature(nameFileImage)
+                # lbp, moments = getMahotasFeature(nameFileImage)
 
                 # Store the rescaled image pixels and the axis ratio
                 X[i, 0:imageSize] = np.reshape(image, (1, imageSize))
@@ -156,7 +155,7 @@ def readingImage(train, namesClasses, directory_names,
                 X[i, imageSize+3] = solidity
                 X[i, imageSize+4] = getSiftCount(nameFileImage)
                 X[i, imageSize+5:imageSize+5+128] = des
-                #X[i, imageSize+5+128:] = moments
+                # X[i, imageSize+5+128:] = moments
 
                 # Store the classlabel
                 y[i] = label
@@ -186,7 +185,7 @@ if __name__ == "__main__":
     maxPixel = 50
     imageSize = maxPixel * maxPixel
     num_rows = numberofImages # one row for each image in the training dataset
-    num_features = imageSize + 4 + 128 + 1 # for our ratio
+    num_features = imageSize + 4 + 128 + 1 + 25 # for our ratio
 
     print num_rows
     # X is the feature vector with one row of features per image
@@ -206,22 +205,22 @@ if __name__ == "__main__":
     print "Training"
     # n_estimators is the number of decision trees
     # max_features also known as m_try is set to the default value of the square root of the number of features
-    # clf = RF(n_estimators=100, n_jobs=3);
-    # scores = cross_validation.cross_val_score(clf, X, y, cv=5, n_jobs=1);
-    # print "Accuracy of all classes"
-    # print np.mean(scores)
+    clf = RF(n_estimators=100, n_jobs=3);
+    scores = cross_validation.cross_val_score(clf, X, y, cv=5, n_jobs=1);
+    print "Accuracy of all classes"
+    print np.mean(scores)
 
-    #
-    # kf = KFold(y, n_folds=5)
-    # y_pred = y * 0
-    # for train, test in kf:
-    #     X_train, X_test, y_train, y_test = X[train,:], X[test,:], y[train], y[test]
-    #     clf = RF(n_estimators=100, n_jobs=3)
-    #     clf.fit(X_train, y_train)
-    #     y_pred[test] = clf.predict(X_test)
-    #
-    # print y_pred
-    # print classification_report(y, y_pred, target_names=namesClasses)
+
+    kf = KFold(y, n_folds=5)
+    y_pred = y * 0
+    for train, test in kf:
+        X_train, X_test, y_train, y_test = X[train,:], X[test,:], y[train], y[test]
+        clf = RF(n_estimators=100, n_jobs=3)
+        clf.fit(X_train, y_train)
+        y_pred[test] = clf.predict(X_test)
+
+    print y_pred
+    print classification_report(y, y_pred, target_names=namesClasses)
 
     print "Testing"
     # get the classnames from the directory structure
