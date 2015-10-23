@@ -17,14 +17,14 @@ There are total 121 classes of plankton of the training data. I only used the tr
 I select features step by step. All the new feature is tested based on the prevous ones. For this part I use Random Forest classifier provided by sklean, decision tree number 100.
 
 #### Rescale image
-*
-    * Hypotheses
+
+* Hypotheses
     The information from the original image could provide inofrmation to help classification.
 
-    * Feature
+* Feature
     Because the image may have different size and the original image could be too large to use, I rescale the image to 25 x 25 size and transfer it to a 1d array of size 25 x 25.
 
-    * Method
+* Method
     I first read in the image from the folder and then using resize to fix the image size of 25 x 25. Then I use np.reshape to make a 1d array.
 
 
