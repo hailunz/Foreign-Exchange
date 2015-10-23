@@ -40,7 +40,7 @@ I select features step by step. All the new feature is tested based on the prevo
 ```
 
   
-  * Result:   
+ * Result:   
     Accuracy of all classes(cross validation): 0.451280580405
     
     Accuracy of the test: 0.460853799242
@@ -48,7 +48,7 @@ I select features step by step. All the new feature is tested based on the prevo
     Running time: 856.844261885s
     
     
-   * Optimazation  
+ * Optimazation  
     
     I tried to increase the size of the image to see whether the size of the rescale image will affect the result. 
     I changed the size of the image to 50 X 50.
@@ -62,7 +62,7 @@ I select features step by step. All the new feature is tested based on the prevo
     Running time: 1080.51703596
     
     
-  * Conclusion  
+* Conclusion  
     Adding the rescale image feature could help classification. Because the it provides the original information about the image. And increasing the size of the rescale image could improve the result because it provides more information about the original image.
     
 
