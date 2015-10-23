@@ -197,17 +197,14 @@ div#notebook {
 <p>There are total 121 classes of plankton of the training data. I only used the training data. I select approximately 80% of the training set as my training data, 20% as the test data. Training set: 24269, test set: 6067.</p>
 <h2 id="Feature-Extraction">Feature Extraction<a class="anchor-link" href="#Feature-Extraction">&#182;</a></h2><p>I select features step by step. All the new feature is tested based on the prevous ones. For this part I use Random Forest classifier provided by sklean, decision tree number 100.</p>
 <h4 id="Rescale-image">Rescale image<a class="anchor-link" href="#Rescale-image">&#182;</a></h4><ul>
-<li><ul>
 <li><p>Hypotheses<br>
-The information from the original image could provide inofrmation to help classification.</p>
+  The information from the original image could provide inofrmation to help classification.</p>
 </li>
 <li><p>Feature<br>
-Because the image may have different size and the original image could be too large to use, I rescale the image to 25 x 25 size and transfer it to a 1d array of size 25 x 25.</p>
+  Because the image may have different size and the original image could be too large to use, I rescale the image to 25 x 25 size and transfer it to a 1d array of size 25 x 25.</p>
 </li>
 <li><p>Method<br>
-I first read in the image from the folder and then using resize to fix the image size of 25 x 25. Then I use np.reshape to make a 1d array.</p>
-</li>
-</ul>
+  I first read in the image from the folder and then using resize to fix the image size of 25 x 25. Then I use np.reshape to make a 1d array.</p>
 </li>
 </ul>
 
@@ -241,7 +238,7 @@ I first read in the image from the folder and then using resize to fix the image
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li><p>Result:<br>
-Accuracy of all classes(cross validation): 0.451280580405</p>
+ Accuracy of all classes(cross validation): 0.451280580405</p>
 <p>Accuracy of the test: 0.460853799242</p>
 <p>Running time: 856.844261885s</p>
 </li>
@@ -249,7 +246,7 @@ Accuracy of all classes(cross validation): 0.451280580405</p>
 <ul>
 <li><p>Optimazation</p>
 <p>I tried to increase the size of the image to see whether the size of the rescale image will affect the result. 
-I changed the size of the image to 50 X 50.</p>
+ I changed the size of the image to 50 X 50.</p>
 <p>The Optimazation results:</p>
 <p>Accuracy of all classes: 0.461760744425</p>
 <p>Accuracy of the test: 0.46958958299</p>
@@ -258,7 +255,7 @@ I changed the size of the image to 50 X 50.</p>
 </ul>
 <ul>
 <li>Conclusion<br>
-Adding the rescale image feature could help classification. Because the it provides the original information about the image. And increasing the size of the rescale image could improve the result because it provides more information about the original image.</li>
+  Adding the rescale image feature could help classification. Because the it provides the original information about the image. And increasing the size of the rescale image could improve the result because it provides more information about the original image.</li>
 </ul>
 
 </div>
@@ -270,32 +267,28 @@ Adding the rescale image feature could help classification. Because the it provi
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Max-Region-Properties-Feature">Max Region Properties Feature<a class="anchor-link" href="#Max-Region-Properties-Feature">&#182;</a></h4><ul>
-<li><ul>
 <li><p>Hypotheses<br>
-The largest segment is more likely to be the object of interest for classfication.
-The information of the largest segment could provide inofrmation to help classification.</p>
+  The largest segment is more likely to be the object of interest for classfication.
+  The information of the largest segment could provide inofrmation to help classification.</p>
 </li>
 <li><p>Feature<br>
-Using measure region properties. I only tested some of the properties:</p>
-<ul>
-<li>Ratio: float<br>
-maxregion.minor_axis_length*1.0 / maxregion.major_axis_length</li>
-<li>filled_area : int<br>
-Number of pixels of filled region</li>
-<li>major_axis_length : float<br>
-The length of the major axis of the ellipse that has the same normalized second central moments as the region.</li>
-<li>minor_axis_length : float<br>
-The length of the minor axis of the ellipse that has the same normalized second central moments as the region.</li>
-<li>perimeter : float<br>
-Perimeter of object which approximates the contour as a line through the centers of border pixels using a 4-connectivity.</li>
-<li>solidity : float<br>
-Ratio of pixels in the region to pixels of the convex hull image.</li>
-</ul>
+  Using measure region properties. I only tested some of the properties:</p>
+
+<pre><code> * Ratio: float  
+  maxregion.minor_axis_length*1.0 / maxregion.major_axis_length
+ * filled_area : int  
+  Number of pixels of filled region
+ * major_axis_length : float  
+  The length of the major axis of the ellipse that has the same normalized second central moments as the region.
+ * minor_axis_length : float  
+  The length of the minor axis of the ellipse that has the same normalized second central moments as the region.
+ * perimeter : float  
+  Perimeter of object which approximates the contour as a line through the centers of border pixels using a 4-connectivity.
+ * solidity : float  
+  Ratio of pixels in the region to pixels of the convex hull image.</code></pre>
 </li>
 <li><p>Method<br>
-First I do some preprocess actions on the image, including: thresholding the images, segmenting the images, and extracting region properties. I choose the largest nonzero region.</p>
-</li>
-</ul>
+  First I do some preprocess actions on the image, including: thresholding the images, segmenting the images, and extracting region properties. I choose the largest nonzero region.</p>
 </li>
 </ul>
 
@@ -416,18 +409,15 @@ Finding the target interest object area and adding the properties of this area c
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="SIFT-feature">SIFT feature<a class="anchor-link" href="#SIFT-feature">&#182;</a></h4><ul>
-<li><ul>
 <li><p>Hypotheses<br>
-Scale-invariant feature transform (or SIFT) is an algorithm in computer vision to detect and describe local features in images. SIFT is rotational invariance. Thus this may be helpful for the classification because the same plankton could be of different orientation. SIFT could help to decrease the effect of the orientation of the image.</p>
+  Scale-invariant feature transform (or SIFT) is an algorithm in computer vision to detect and describe local features in images. SIFT is rotational invariance. Thus this may be helpful for the classification because the same plankton could be of different orientation. SIFT could help to decrease the effect of the orientation of the image.</p>
 </li>
 <li><p>Feature<br>
-SIFT feature originally is composed of a M<em>128 array. M is the number of the key points int the image. It varies from image to image.
-In order to make the feature to be a constant size 1d array, I use the sum of each column to form a 1</em>128 1d array.</p>
+  SIFT feature originally is composed of a M<em>128 array. M is the number of the key points int the image. It varies from image to image.
+  In order to make the feature to be a constant size 1d array, I use the sum of each column to form a 1</em>128 1d array.</p>
 </li>
 <li><p>Method<br>
-I use the opencv lib of python to extract the key point descriptor of the SIFT.</p>
-</li>
-</ul>
+  I use the opencv lib of python to extract the key point descriptor of the SIFT.</p>
 </li>
 </ul>
 
@@ -517,32 +507,28 @@ I use the opencv lib of python to extract the key point descriptor of the SIFT.<
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Mahotas-feature">Mahotas feature<a class="anchor-link" href="#Mahotas-feature">&#182;</a></h4><ul>
-<li><ul>
 <li><p>Hypotheses<br>
-There are also some other existing image feature extraction algorithms that could yield good results. I use mahotas library to test some of them.</p>
+  There are also some other existing image feature extraction algorithms that could yield good results. I use mahotas library to test some of them.</p>
 </li>
 <li><p>Feature</p>
-<ul>
-<li><p>Local binary patterns (LBP) is a type of feature used for classification in computer vision.<br>
-The LBP feature vector, in its simplest form, is created in the following manner:</p>
-<p>Divide the examined window into cells (e.g. 16x16 pixels for each cell).
-For each pixel in a cell, compare the pixel to each of its 8 neighbors (on its left-top, left-middle, left-bottom, right-top, etc.). Follow the pixels along a circle, i.e. clockwise or counter-clockwise.
-Where the center pixel's value is greater than the neighbor's value, write "1". Otherwise, write "0". This gives an 8-digit binary number (which is usually converted to decimal for convenience).
-Compute the histogram, over the cell, of the frequency of each "number" occurring (i.e., each combination of which pixels are smaller and which are greater than the center).
-Optionally normalize the histogram.
-Concatenate (normalized) histograms of all cells. This gives the feature vector for the window.
-(From: <a href="https://en.wikipedia.org/wiki/Local_binary_patterns">https://en.wikipedia.org/wiki/Local_binary_patterns</a>)</p>
-</li>
-<li><p>Zernike moments through degree. These are computed on a circle of radius radius centered around cm (or the center of mass of the image, if the cm argument is not used).
-Zernike moments are utilized as shape descriptors to classify benign and malignant breast masses.
-(From: <a href="https://en.wikipedia.org/wiki/Zernike_polynomials">https://en.wikipedia.org/wiki/Zernike_polynomials</a>)</p>
-</li>
-</ul>
+
+<pre><code> * Local binary patterns (LBP) is a type of feature used for classification in computer vision.  
+ The LBP feature vector, in its simplest form, is created in the following manner:
+
+ Divide the examined window into cells (e.g. 16x16 pixels for each cell).
+ For each pixel in a cell, compare the pixel to each of its 8 neighbors (on its left-top, left-middle, left-bottom, right-top, etc.). Follow the pixels along a circle, i.e. clockwise or counter-clockwise.
+ Where the center pixel's value is greater than the neighbor's value, write "1". Otherwise, write "0". This gives an 8-digit binary number (which is usually converted to decimal for convenience).
+ Compute the histogram, over the cell, of the frequency of each "number" occurring (i.e., each combination of which pixels are smaller and which are greater than the center).
+ Optionally normalize the histogram.
+ Concatenate (normalized) histograms of all cells. This gives the feature vector for the window.
+ (From: https://en.wikipedia.org/wiki/Local_binary_patterns)
+
+ * Zernike moments through degree. These are computed on a circle of radius radius centered around cm (or the center of mass of the image, if the cm argument is not used).
+ Zernike moments are utilized as shape descriptors to classify benign and malignant breast masses.
+ (From: https://en.wikipedia.org/wiki/Zernike_polynomials)</code></pre>
 </li>
 <li><p>Method<br>
-I use the mahotas lib of python to extract the key point descriptor of the lbp/Zernike moments.</p>
-</li>
-</ul>
+  I use the mahotas lib of python to extract the key point descriptor of the lbp/Zernike moments.</p>
 </li>
 </ul>
 
