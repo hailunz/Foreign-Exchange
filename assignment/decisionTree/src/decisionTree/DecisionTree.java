@@ -1,5 +1,9 @@
 package decisionTree;
 
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Row;
+import database.Database;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -12,10 +16,11 @@ public class DecisionTree implements Serializable {
 
 
     TreeNode root;
+    Database db;
 
-
-    public void setRoot(String filename, ArrayList<Integer> set0) throws IOException {
-        root = getNode(filename,set0);
+    public void setRoot(String tablename, ArrayList<Integer> set0, Database db) throws IOException {
+        root = getNode(tablename,set0);
+        this.db = db;
     }
 
     public TreeNode getRoot() throws IOException {
@@ -24,13 +29,14 @@ public class DecisionTree implements Serializable {
 
     /**
      * Get the Current feature node
-     * @param filename
+     * @param tablename
      * @param set0
      * @return
      * @throws IOException
      */
-    public TreeNode getNode(String filename, ArrayList<Integer> set0) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+    public TreeNode getNode(String tablename, ArrayList<Integer> set0) throws IOException {
+        ResultSet results = db.selectAllFromTable(tablename);
+
         ArrayList<Integer> set = new ArrayList<>(set0);
         int n = set.size();
         TreeNode root = null;
@@ -38,17 +44,14 @@ public class DecisionTree implements Serializable {
         // if the node is in the last level
         if (n==1){
             root = new TreeNode(set.get(0));
-            String l = br.readLine();
-            String[] line;
             int [] count= new int[4];
             int num = 0;
-            while(l!=null){
-                line = l.split("\n")[0].split("\t");
+            for(Row row : results){
                 num++;
                 for(int i=0;i<n;i++){
                     int f = set.get(i);
-                    int x = Integer.parseInt(line[f]);
-                    int y = Integer.parseInt(line[6]);
+                    int x = row.getInt(f+1);
+                    int y = row.getInt(7);
                     if (x==0 && y==0){
                         count[0]++;
                     }else if (x==0 && y==1){
@@ -59,7 +62,6 @@ public class DecisionTree implements Serializable {
                         count[3]++;
                     }
                 }
-                l = br.readLine();
             }
 
             // compute probability
@@ -87,16 +89,14 @@ public class DecisionTree implements Serializable {
         int [][]count = new int[n][4];
 
         try {
-            String []line;
-            String l = br.readLine();
             int num = 0;
-            while (l != null) {
-                line = l.split("\t");
+            for(Row row : results){
                 num++;
                 for(int i=0;i<n;i++){
                     int f = set.get(i);
-                    int x = Integer.parseInt(line[f]);
-                    int y = Integer.parseInt(line[6]);
+                    int x = row.getInt(f+1);
+                    int y = row.getInt(7);
+
                     if (x==0 && y==0){
                         count[i][0]++;
                     }else if (x==0 && y==1){
@@ -107,9 +107,7 @@ public class DecisionTree implements Serializable {
                         count[i][3]++;
                     }
                 }
-                l = br.readLine();
             }
-            br.close();
 
             // compute probability
             double[] prob = new double[n];
@@ -139,35 +137,37 @@ public class DecisionTree implements Serializable {
             set.remove(index);
 
             // read again and split the file.
-            String leftFile = String.valueOf(curFeature) + "left";
-            String rightFile = String.valueOf(curFeature) + "right";
-            BufferedWriter left = new BufferedWriter(new FileWriter(leftFile));
-            BufferedWriter right = new BufferedWriter(new FileWriter(rightFile));
+            String left =  "left" + String.valueOf(curFeature);
+            String right = "right" + String.valueOf(curFeature) ;
 
-            br = new BufferedReader(new FileReader(filename));
-            l = br.readLine();
-            while(l!=null){
-                line = l.split("\t");
-                //System.out.println(l);
-                if (line[curFeature].equals("0")){
-                    left.write(l+"\n");
+            if (db.tableExist(left))
+                db.truncate(left);
+            else
+                db.createTable(left);
+
+            if (db.tableExist(right))
+                db.truncate(right);
+            else
+                db.createTable(right);
+
+            results = db.selectAllFromTable(tablename);
+
+            for(Row row: results){
+                String r = row.toString();
+                if (row.getInt(curFeature+1)==0){
+                    db.insertRow(left,r.substring(4,r.length()-1));
                 }else{
-                    right.write(l+"\n");
+                    db.insertRow(right,r.substring(4,r.length()-1));
                 }
-                l = br.readLine();
             }
-
-            left.close();
-            right.close();
 
             // System.out.println(curFeature);
             root = new TreeNode(curFeature);
-            root.left = getNode(leftFile,set);
-            root.right = getNode(rightFile,set);
+            root.left = getNode(left,set);
+            root.right = getNode(right,set);
 
-        } finally {
-            br.close();
-
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return root;
     }

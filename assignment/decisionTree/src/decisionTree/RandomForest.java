@@ -1,5 +1,9 @@
 package decisionTree;
 
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Row;
+import database.Database;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,15 +18,17 @@ import java.util.Random;
 public class RandomForest implements Serializable {
     ArrayList<TreeNode> forest;
     int N;
-    String filename;
+    String tablename;
+    public Database db;
 
-    public RandomForest(int n, String filename) {
+    public RandomForest(int n, String tablename,Database db) {
         N = n;
-        this.filename = filename;
+        this.tablename = tablename;
+        this.db = db;
     }
 
     public void setForest() throws IOException {
-        this.forest = randomForest(N, filename);
+        this.forest = randomForest(N, tablename);
     }
 
     public ArrayList<TreeNode> getForest(){
@@ -32,11 +38,11 @@ public class RandomForest implements Serializable {
     /**
      * Get a list of root of the randomForest
      * @param N
-     * @param filename
+     * @param tableName - train or test table
      * @return
      * @throws IOException
      */
-    public static ArrayList<TreeNode> randomForest(int N,String filename) throws IOException {
+    public ArrayList<TreeNode> randomForest(int N,String tableName) throws IOException {
 
         int featureNum = (int) Math.ceil(Math.sqrt((double)N));
         HashSet<ArrayList<Integer>> featureSet = new HashSet<>();
@@ -49,7 +55,7 @@ public class RandomForest implements Serializable {
         }
 
         for(ArrayList<Integer> set : featureSet){
-            TreeNode root = getRandomForestNode(filename, set, 3);
+            TreeNode root = getRandomForestNode(tableName, set, featureNum);
             forest.add(root);
         }
 
@@ -62,7 +68,7 @@ public class RandomForest implements Serializable {
      * @param featureNum
      * @return
      */
-    public static boolean getFeature(HashSet<ArrayList<Integer>> featureSet, int featureNum){
+    public boolean getFeature(HashSet<ArrayList<Integer>> featureSet, int featureNum){
         Random ran = new Random();
         ArrayList<Integer> set = new ArrayList<>();
         HashSet<Integer> currentFeatures = new HashSet<>();
@@ -89,14 +95,16 @@ public class RandomForest implements Serializable {
 
     /**
      * Get the Current feature node
-     * @param filename
+     * @param tableName
      * @param set0
      * @return
      * @throws IOException
      */
-    public static TreeNode getRandomForestNode(String filename, ArrayList<Integer> set0,
+    public TreeNode getRandomForestNode(String tableName, ArrayList<Integer> set0,
                                                int trainRatio) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+
+        ResultSet results = this.db.selectAllFromTable(tableName);
+
         ArrayList<Integer> set = new ArrayList<>(set0);
         int n = set.size();
         TreeNode root = null;
@@ -105,24 +113,21 @@ public class RandomForest implements Serializable {
         // if the node is in the last level
         if (n==1){
             root = new TreeNode(set.get(0));
-            String l = br.readLine();
-            String[] line;
+
             int [] count= new int[4];
             int num = 0;
-            while(l!=null){
+            for(Row row : results){
                 // random select training dataset
                 number = ran.nextInt(trainRatio);
                 if (number == 0) {
-                    l = br.readLine();
                     continue;
                 }
 
-                line = l.split("\n")[0].split("\t");
                 num++;
                 for(int i=0;i<n;i++){
                     int f = set.get(i);
-                    int x = Integer.parseInt(line[f]);
-                    int y = Integer.parseInt(line[6]);
+                    int x = row.getInt(f+1);
+                    int y = row.getInt(7);
                     if (x==0 && y==0){
                         count[0]++;
                     }else if (x==0 && y==1){
@@ -133,7 +138,6 @@ public class RandomForest implements Serializable {
                         count[3]++;
                     }
                 }
-                l = br.readLine();
             }
 
             // compute probability
@@ -161,23 +165,19 @@ public class RandomForest implements Serializable {
         int [][]count = new int[n][4];
 
         try {
-            String []line;
-            String l = br.readLine();
+
             int num = 0;
-            while (l != null) {
+            for (Row row : results){
                 // random select training dataset
                 number = ran.nextInt(trainRatio);
                 if (number == 0) {
-                    l = br.readLine();
                     continue;
                 }
-
-                line = l.split("\t");
                 num++;
                 for(int i=0;i<n;i++){
                     int f = set.get(i);
-                    int x = Integer.parseInt(line[f]);
-                    int y = Integer.parseInt(line[6]);
+                    int x = row.getInt(f+1);
+                    int y = row.getInt(7);
                     if (x==0 && y==0){
                         count[i][0]++;
                     }else if (x==0 && y==1){
@@ -188,9 +188,7 @@ public class RandomForest implements Serializable {
                         count[i][3]++;
                     }
                 }
-                l = br.readLine();
             }
-            br.close();
 
             // compute probability
             double[] prob = new double[n];
@@ -220,48 +218,51 @@ public class RandomForest implements Serializable {
             set.remove(index);
 
             // read again and split the file.
-            String leftFile = String.valueOf(curFeature) + "left";
-            String rightFile = String.valueOf(curFeature) + "right";
-            BufferedWriter left = new BufferedWriter(new FileWriter(leftFile));
-            BufferedWriter right = new BufferedWriter(new FileWriter(rightFile));
+            String left =  "left" + String.valueOf(curFeature);
+            String right = "right" + String.valueOf(curFeature) ;
 
-            br = new BufferedReader(new FileReader(filename));
-            l = br.readLine();
-            while(l!=null){
-                line = l.split("\t");
-                //System.out.println(l);
-                if (line[curFeature].equals("0")){
-                    left.write(l+"\n");
+            if (db.tableExist(left))
+                db.truncate(left);
+            else
+                db.createTable(left);
+
+            if (db.tableExist(right))
+                db.truncate(right);
+            else
+                db.createTable(right);
+
+            results = db.selectAllFromTable(tableName);
+
+            for(Row row: results){
+                String r = row.toString();
+                if (row.getInt(curFeature+1)==0){
+                    db.insertRow(left,r.substring(4,r.length()-1));
                 }else{
-                    right.write(l+"\n");
+                    db.insertRow(right,r.substring(4,r.length()-1));
                 }
-                l = br.readLine();
             }
-
-            left.close();
-            right.close();
 
             // System.out.println(curFeature);
             root = new TreeNode(curFeature);
-            root.left = getNode(leftFile,set);
-            root.right = getNode(rightFile,set);
+            root.left = getNode(left,set);
+            root.right = getNode(right,set);
 
-        } finally {
-            br.close();
-
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return root;
     }
 
     /**
      * Get the Current feature node
-     * @param filename
+     * @param tablename
      * @param set0
      * @return
      * @throws IOException
      */
-    public static TreeNode getNode(String filename, ArrayList<Integer> set0) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+    public TreeNode getNode(String tablename, ArrayList<Integer> set0) throws IOException {
+        ResultSet results = db.selectAllFromTable(tablename);
+
         ArrayList<Integer> set = new ArrayList<>(set0);
         int n = set.size();
         TreeNode root = null;
@@ -269,17 +270,14 @@ public class RandomForest implements Serializable {
         // if the node is in the last level
         if (n==1){
             root = new TreeNode(set.get(0));
-            String l = br.readLine();
-            String[] line;
             int [] count= new int[4];
             int num = 0;
-            while(l!=null){
-                line = l.split("\n")[0].split("\t");
+            for(Row row : results){
                 num++;
                 for(int i=0;i<n;i++){
                     int f = set.get(i);
-                    int x = Integer.parseInt(line[f]);
-                    int y = Integer.parseInt(line[6]);
+                    int x = row.getInt(f+1);
+                    int y = row.getInt(7);
                     if (x==0 && y==0){
                         count[0]++;
                     }else if (x==0 && y==1){
@@ -290,7 +288,6 @@ public class RandomForest implements Serializable {
                         count[3]++;
                     }
                 }
-                l = br.readLine();
             }
 
             // compute probability
@@ -318,16 +315,14 @@ public class RandomForest implements Serializable {
         int [][]count = new int[n][4];
 
         try {
-            String []line;
-            String l = br.readLine();
             int num = 0;
-            while (l != null) {
-                line = l.split("\t");
+            for(Row row : results){
                 num++;
                 for(int i=0;i<n;i++){
                     int f = set.get(i);
-                    int x = Integer.parseInt(line[f]);
-                    int y = Integer.parseInt(line[6]);
+                    int x = row.getInt(f+1);
+                    int y = row.getInt(7);
+
                     if (x==0 && y==0){
                         count[i][0]++;
                     }else if (x==0 && y==1){
@@ -338,9 +333,7 @@ public class RandomForest implements Serializable {
                         count[i][3]++;
                     }
                 }
-                l = br.readLine();
             }
-            br.close();
 
             // compute probability
             double[] prob = new double[n];
@@ -370,35 +363,37 @@ public class RandomForest implements Serializable {
             set.remove(index);
 
             // read again and split the file.
-            String leftFile = String.valueOf(curFeature) + "left";
-            String rightFile = String.valueOf(curFeature) + "right";
-            BufferedWriter left = new BufferedWriter(new FileWriter(leftFile));
-            BufferedWriter right = new BufferedWriter(new FileWriter(rightFile));
+            String left =  "left" + String.valueOf(curFeature);
+            String right = "right" + String.valueOf(curFeature) ;
 
-            br = new BufferedReader(new FileReader(filename));
-            l = br.readLine();
-            while(l!=null){
-                line = l.split("\t");
-                //System.out.println(l);
-                if (line[curFeature].equals("0")){
-                    left.write(l+"\n");
+            if (db.tableExist(left))
+                db.truncate(left);
+            else
+                db.createTable(left);
+
+            if (db.tableExist(right))
+                db.truncate(right);
+            else
+                db.createTable(right);
+
+            results = db.selectAllFromTable(tablename);
+
+            for(Row row: results){
+                String r = row.toString();
+                if (row.getInt(curFeature+1)==0){
+                    db.insertRow(left,r.substring(4,r.length()-1));
                 }else{
-                    right.write(l+"\n");
+                    db.insertRow(right,r.substring(4,r.length()-1));
                 }
-                l = br.readLine();
             }
-
-            left.close();
-            right.close();
 
             // System.out.println(curFeature);
             root = new TreeNode(curFeature);
-            root.left = getNode(leftFile,set);
-            root.right = getNode(rightFile,set);
+            root.left = getNode(left,set);
+            root.right = getNode(right,set);
 
-        } finally {
-            br.close();
-
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return root;
     }

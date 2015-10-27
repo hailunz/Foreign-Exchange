@@ -1,5 +1,9 @@
 package decisionTree;
 
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Row;
+import database.Database;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,18 +17,25 @@ import java.util.ArrayList;
  */
 public class Test implements Serializable{
 
+    public Database db;
+
+    public Test(Database db){
+        this.db = db;
+    }
+
     /**
      * testRandomForest
-     * @param filename
+     * @param tablename
      * @param forest
      * @return
      * @throws IOException
      */
-    public static double testRandomForest(String filename, ArrayList<TreeNode> forest) throws IOException {
+    public double testRandomForest(String tablename, ArrayList<TreeNode> forest) throws IOException {
         double res = 0.0;
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String l = br.readLine();
-        String line[] = null;
+        ResultSet results = db.selectAllFromTable(tablename);
+
+        int line[] = new int[6];
+
         int correct = 0;
         int count = 0;
         int realLabal = 0;
@@ -33,12 +44,15 @@ public class Test implements Serializable{
         int count0 = 0;
         int count1 = 0;
 
-        while(l != null){
+        for(Row row: results){
             count0 = 0;
             count1 = 0;
             count++;
-            line = l.split("\t");
-            realLabal = Integer.parseInt(line[6]);
+            realLabal = row.getInt("label");
+
+            for (int i=0;i<6;i++){
+                line[i] = row.getInt(i+1);
+            }
 
             for(TreeNode root : forest){
                 testLabel = getLabel(root,line);
@@ -50,40 +64,44 @@ public class Test implements Serializable{
 
             testLabel = count1 >= count0 ? 1: 0;
             correct += realLabal == testLabel ?1:0;
-            l = br.readLine();
+
         }
         res = (double) correct/count;
-        br.close();
         return res;
     }
 
 
     /**
      * testTree : use the decision tree to test test data
-     * @param filename
+     * @param tablename
      * @param root
      * @return
      * @throws IOException
      */
-    public static double testTree(String filename, TreeNode root) throws IOException {
+    public double testTree(String tablename, TreeNode root) throws IOException {
         double res = 0.0;
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String l = br.readLine();
-        String line[] = null;
+
+        ResultSet results = db.selectAllFromTable(tablename);
+
+        int line[] = new int[6];
         int correct = 0;
         int count = 0;
         int realLabal = 0;
         int testLabel = 0;
-        while(l!=null){
+        for(Row row: results){
             count++;
-            line = l.split("\t");
-            realLabal = Integer.parseInt(line[6]);
+
+            realLabal = row.getInt("label");
+
+            for (int i=0;i<6;i++){
+                line[i] = row.getInt(i+1);
+            }
+
             testLabel = getLabel(root,line);
             correct += realLabal == testLabel ?1:0;
-            l = br.readLine();
+
         }
         res = (double) correct/count;
-        br.close();
         return res;
     }
 
@@ -93,14 +111,14 @@ public class Test implements Serializable{
      * @param line
      * @return
      */
-    public static int getLabel(TreeNode root, String[] line){
+    public static int getLabel(TreeNode root, int[] line){
         int label = 0;
         TreeNode node = root;
         int feature;
         int testF;
         while(node!=null && !node.isLabel){
             feature = node.feature;
-            testF = Integer.parseInt(line[feature]);
+            testF = line[feature];
             if (testF == 0)
                 node = node.left;
             else
