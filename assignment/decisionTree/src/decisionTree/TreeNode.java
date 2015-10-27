@@ -1,5 +1,6 @@
 package decisionTree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Stack;
  * ID: hailunz
  * Date: 9/25/15
  */
-public class TreeNode {
+public class TreeNode implements Serializable {
     // left 0, right 1
 
     TreeNode left;
