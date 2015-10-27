@@ -59,4 +59,18 @@ public class Util {
         }
         db.close();
     }
+
+    public void loadTrainData() throws IOException {
+        String trainFile = "/Users/hailunzhu/cmu/course/11676/parseData/train";
+        Util util = new Util();
+        util.getDBProperties("db.properties");
+        util.loadDataIntoDB(util.map.get("ip"), util.map.get("keyspace"), "train", trainFile);
+    }
+
+    public void loadTestData() throws IOException {
+        String trainFile = "/Users/hailunzhu/cmu/course/11676/parseData/test";
+        Util util = new Util();
+        util.getDBProperties("db.properties");
+        util.loadDataIntoDB(util.map.get("ip"),util.map.get("keyspace"),"test",trainFile);
+    }
 }

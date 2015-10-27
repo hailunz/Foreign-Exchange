@@ -1,0 +1,25 @@
+create table train(lineID int primary key,
+           f0 int,
+           f1 int,
+           f2 int,
+           f3 int,
+           f4 int,
+           f5 int,
+           label int);
+
+create table test(lineID int primary key,
+           f0 int,
+           f1 int,
+           f2 int,
+           f3 int,
+           f4 int,
+           f5 int,
+           label int);
+
+create table if not exists left0(lineID int primary key,f0 int,f1 int,f2 int,f3 int,f4 int,f5 int,label int);
+
+create table if not exists result(timestamp timestamp primary key,forest double,tree0 double,tree1 double,tree2 double,tree3 double,tree4 double);
+
+create table if not exists tree(uuid uuid primary key, timestamp timestamp,object blob, length int);
+
+CREATE INDEX tree_idx ON bigdata.tree ( timestamp );
