@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="decisionTree:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/decisionTree_jar</output-path>
+    <root id="archive" name="decisionTree.jar">
+      <element id="module-output" name="decisionTree" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/cassandra-driver-dse-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/cassandra-driver-core-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/cassandra-driver-mapping-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/lz4-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/guava-16.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/log4j-1.2.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/slf4j-api-1.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/netty-3.9.0.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/snappy-java-1.0.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/metrics-core-3.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../cassandra-java-driver-2.1.0/lib/slf4j-log4j12-1.7.6.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

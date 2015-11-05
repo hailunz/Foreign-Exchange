@@ -29,5 +29,84 @@
         <jarDirectory url="file://$MODULE_DIR$/../cassandra-java-driver-2.1.0/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../cassandra-all-1.2.19.jar!/" />
+          <root url="jar://$MODULE_DIR$/../cassandra-all-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../cassandra-all-3.0.0-rc1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../cassandra-thrift-1.1.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/../hadoop-common-2.7.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../hadoop-core-1.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../hadoop-mapreduce-client-core-2.7.1.jar!/" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/site/apidocs" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/site/testapidocs" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/integration/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/jcl-over-slf4j/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/jcl-over-slf4j/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/jul-to-slf4j/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/jul-to-slf4j/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/log4j-over-slf4j/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/log4j-over-slf4j/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/osgi-over-slf4j/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-android/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-android/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-api/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-api/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-ext/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-ext/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-jcl/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-jcl/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-jdk14/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-jdk14/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-log4j12/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-log4j12/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-migrator/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-migrator/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-nop/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-nop/src/test/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-simple/src/main/java" />
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12/slf4j-simple/src/test/java" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/contrib/thrift-maven-plugin/src/main/java" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/contrib/thrift-maven-plugin/src/test/java" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/lib/java/src" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/lib/java/test" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/lib/javame/src" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/lib/js/test/src" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/tutorial/java/src" />
+          <root url="file://$MODULE_DIR$/../thrift-0.9.3/tutorial/js/src" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../slf4j-1.7.12" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../slf4j-1.7.12" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../slf4j-1.7.12" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../slf4j-1.7.12" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../slf4j-1.7.12" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../gson-2.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

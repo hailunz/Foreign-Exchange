@@ -16,9 +16,7 @@ import java.util.ArrayList;
  * Date: 10/26/15
  */
 public class Test implements Serializable{
-
     public Database db;
-
     public Test(Database db){
         this.db = db;
     }
