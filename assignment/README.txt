@@ -1,6 +1,7 @@
 README
 
 table.txt: table schema, create table command
+forest: Json file for example random forest.
 
 
 data prep:
@@ -25,13 +26,22 @@ decisionTree:
 				generate random forest
 			- DecisionTree.java:
 				generate a single tree
-			- Test.java:
-				test methods for trees and forest.
+		
 		- database (package):
 			- Database.java
 				for connection and operations with database
 			- Util.java
 				load data in/out to/from database
+
+		- testClient (package)
+			- Test 
+			- TestFromFile : test client 
+
+		- MapReduce (package):
+			- MapReduce.java
+			- NLineInputFormat.java
+			- BlockRecordReader.java
+
 		- log4j.properties:
 			configuration file
 
