@@ -3,7 +3,7 @@ package MapReduce;
 /**
  * Hailun Zhu
  * ID: hailunz
- * Date: 11/4/15
+ * Date: 11/1/15
  */
 import java.io.*;
 import java.util.*;

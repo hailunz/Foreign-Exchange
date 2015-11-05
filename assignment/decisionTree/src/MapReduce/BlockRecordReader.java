@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Hailun Zhu
  * ID: hailunz
- * Date: 11/5/15
+ * Date: 11/1/15
  */
 public class BlockRecordReader implements RecordReader<LongWritable, Text> {
         private LineRecordReader lineRecord;
