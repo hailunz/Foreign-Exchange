@@ -12,7 +12,7 @@ import java.util.Random;
  * Date: 10/25/15
  */
 public class RandomForest implements Serializable {
-    ArrayList<TreeNode> forest;
+    public ArrayList<TreeNode> forest;
     int N;
     String filename;
     public static HashSet<ArrayList<Integer>> featureSet = new HashSet<>();

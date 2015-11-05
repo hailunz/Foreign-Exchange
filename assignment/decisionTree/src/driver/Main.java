@@ -1,20 +1,13 @@
 package driver;
 
 import MapReduce.MapReduce;
-import com.datastax.driver.core.*;
-import com.datastax.driver.core.utils.Bytes;
-import database.Database;
-import database.Util;
 import decisionTree.RandomForest;
-import decisionTree.Test;
-import decisionTree.TestFromFile;
+import testClient.TestFromFile;
 import decisionTree.TreeNode;
 
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 /**

@@ -14,11 +14,11 @@ import java.util.Stack;
 public class TreeNode implements Serializable {
     // left 0, right 1
 
-    TreeNode left;
-    TreeNode right;
-    int feature;
-    int label;
-    boolean isLabel;
+    public TreeNode left;
+    public TreeNode right;
+    public int feature;
+    public int label;
+    public boolean isLabel;
     public TreeNode(int f){
         feature = f;
     }

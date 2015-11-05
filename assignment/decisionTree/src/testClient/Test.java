@@ -1,8 +1,9 @@
-package decisionTree;
+package testClient;
 
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import database.Database;
+import decisionTree.TreeNode;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

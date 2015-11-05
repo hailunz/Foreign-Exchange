@@ -1,4 +1,4 @@
-package decisionTree;
+package testClient;
 
 /**
  * Hailun Zhu
@@ -9,6 +9,8 @@ package decisionTree;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import decisionTree.RandomForest;
+import decisionTree.TreeNode;
 
 import java.io.*;
 import java.util.ArrayList;
