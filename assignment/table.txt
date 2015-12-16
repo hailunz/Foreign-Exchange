@@ -23,3 +23,7 @@ create table if not exists result(timestamp timestamp primary key,forest double,
 create table if not exists tree(uuid uuid primary key, timestamp timestamp,object blob, length int);
 
 CREATE INDEX tree_idx ON bigdata.tree ( timestamp );
+
+create table if not exists test(uuid uuid primary key,test1 Text);
+
+create table if not exists performance(timestamp timestamp primary key,precision double,recall double);

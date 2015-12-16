@@ -48,4 +48,11 @@ decisionTree:
 	- db.properties:
 		store information about db ip and keyspace
 
+
+packages:
+
+cassandra-all-1.2.19.jarcassandra-all-2.0.17.jarcassandra-all-3.0.0-rc1.jarcassandra-thrift-1.1.5.jargson-2.3.1.jarhadoop-common-2.7.1.jarhadoop-core-1.2.1.jarhadoop-mapreduce-client-core-2.7.1.jar
+slf4j-1.7.12.zipthrift-0.9.3.tar.gz
+cassandra-java-driver-2.1.0
+
 		

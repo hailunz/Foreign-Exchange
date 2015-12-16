@@ -1,6 +1,7 @@
 package driver;
 
-import MapReduce.MapReduce;
+//import MapReduce.MapReduce;
+import database.Util;
 import decisionTree.RandomForest;
 import testClient.TestFromFile;
 import decisionTree.TreeNode;
@@ -20,8 +21,10 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-         MapReduce mp = new MapReduce();
-         mp.main(args);
+//         MapReduce mp = new MapReduce();
+//         mp.main(args);
+        Util u = new Util();
+        u.loadTestData();
     }
 
     public static void testFile() throws IOException {

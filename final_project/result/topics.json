@@ -1,0 +1,515 @@
+{
+    "name": "Topics", 
+    "children": [
+        {
+            "children": [
+                {
+                    "group": 0, 
+                    "name": "brain", 
+                    "size": 0.021367040097051575
+                }, 
+                {
+                    "group": 0, 
+                    "name": "concentration", 
+                    "size": 0.011791782896165465
+                }, 
+                {
+                    "group": 0, 
+                    "name": "plasma", 
+                    "size": 0.009241168532610651
+                }, 
+                {
+                    "group": 0, 
+                    "name": "animal", 
+                    "size": 0.0071086876712779358
+                }, 
+                {
+                    "group": 0, 
+                    "name": "rat", 
+                    "size": 0.0064396740677225761
+                }, 
+                {
+                    "group": 0, 
+                    "name": "min", 
+                    "size": 0.0063978607175003647
+                }, 
+                {
+                    "group": 0, 
+                    "name": "ecf", 
+                    "size": 0.0057706604641672129
+                }, 
+                {
+                    "group": 0, 
+                    "name": "time", 
+                    "size": 0.0055615937130561628
+                }, 
+                {
+                    "group": 0, 
+                    "name": "quinidine", 
+                    "size": 0.0052689002615006926
+                }
+            ], 
+            "name": "Topic:0", 
+            "size": 3
+        }, 
+        {
+            "children": [
+                {
+                    "group": 1, 
+                    "name": "concentration", 
+                    "size": 0.02238467808140579
+                }, 
+                {
+                    "group": 1, 
+                    "name": "sample", 
+                    "size": 0.022174503178054718
+                }, 
+                {
+                    "group": 1, 
+                    "name": "assay", 
+                    "size": 0.016499780787575805
+                }, 
+                {
+                    "group": 1, 
+                    "name": "oxytocin", 
+                    "size": 0.012401370172229927
+                }, 
+                {
+                    "group": 1, 
+                    "name": "level", 
+                    "size": 0.012086107817203323
+                }, 
+                {
+                    "group": 1, 
+                    "name": "buffer", 
+                    "size": 0.011875932913852251
+                }, 
+                {
+                    "group": 1, 
+                    "name": "csf", 
+                    "size": 0.011560670558825642
+                }, 
+                {
+                    "group": 1, 
+                    "name": "ion", 
+                    "size": 0.011350495655474574
+                }, 
+                {
+                    "group": 1, 
+                    "name": "effect", 
+                    "size": 0.01124540820379904
+                }
+            ], 
+            "name": "Topic:1", 
+            "size": 5
+        }, 
+        {
+            "children": [
+                {
+                    "group": 2, 
+                    "name": "model", 
+                    "size": 0.023154262981249892
+                }, 
+                {
+                    "group": 2, 
+                    "name": "mathrm", 
+                    "size": 0.015661815914217728
+                }, 
+                {
+                    "group": 2, 
+                    "name": "study", 
+                    "size": 0.012279808557571263
+                }, 
+                {
+                    "group": 2, 
+                    "name": "concentration", 
+                    "size": 0.011447314439012132
+                }, 
+                {
+                    "group": 2, 
+                    "name": "value", 
+                    "size": 0.0095742026722540896
+                }, 
+                {
+                    "group": 2, 
+                    "name": "design", 
+                    "size": 0.0091579556129745259
+                }, 
+                {
+                    "group": 2, 
+                    "name": "observed", 
+                    "size": 0.0086896776712850135
+                }, 
+                {
+                    "group": 2, 
+                    "name": "sampling", 
+                    "size": 0.0081173379647756141
+                }, 
+                {
+                    "group": 2, 
+                    "name": "using", 
+                    "size": 0.0071807820813965919
+                }
+            ], 
+            "name": "Topic:2", 
+            "size": 4
+        }, 
+        {
+            "children": [
+                {
+                    "group": 3, 
+                    "name": "particle", 
+                    "size": 0.027348488919826587
+                }, 
+                {
+                    "group": 3, 
+                    "name": "formulation", 
+                    "size": 0.018062938857514824
+                }, 
+                {
+                    "group": 3, 
+                    "name": "protein", 
+                    "size": 0.014692156985579729
+                }, 
+                {
+                    "group": 3, 
+                    "name": "sample", 
+                    "size": 0.0095405846907355325
+                }, 
+                {
+                    "group": 3, 
+                    "name": "count", 
+                    "size": 0.0079505932417095453
+                }, 
+                {
+                    "group": 3, 
+                    "name": "size", 
+                    "size": 0.0076325949519043491
+                }, 
+                {
+                    "group": 3, 
+                    "name": "flow", 
+                    "size": 0.006932998714332915
+                }, 
+                {
+                    "group": 3, 
+                    "name": "measurement", 
+                    "size": 0.006615000424527717
+                }, 
+                {
+                    "group": 3, 
+                    "name": "solution", 
+                    "size": 0.0064878011086056371
+                }
+            ], 
+            "name": "Topic:3", 
+            "size": 4
+        }, 
+        {
+            "children": [
+                {
+                    "group": 4, 
+                    "name": "patient", 
+                    "size": 0.023223926150695403
+                }, 
+                {
+                    "group": 4, 
+                    "name": "antibody", 
+                    "size": 0.019573464530406173
+                }, 
+                {
+                    "group": 4, 
+                    "name": "treatment", 
+                    "size": 0.01491330075982417
+                }, 
+                {
+                    "group": 4, 
+                    "name": "tumor", 
+                    "size": 0.013981268005707767
+                }, 
+                {
+                    "group": 4, 
+                    "name": "subject", 
+                    "size": 0.013903598609531401
+                }, 
+                {
+                    "group": 4, 
+                    "name": "day", 
+                    "size": 0.012738557666885902
+                }, 
+                {
+                    "group": 4, 
+                    "name": "macitentan", 
+                    "size": 0.011495847328064034
+                }, 
+                {
+                    "group": 4, 
+                    "name": "exposure", 
+                    "size": 0.011340508535711301
+                }, 
+                {
+                    "group": 4, 
+                    "name": "expression", 
+                    "size": 0.0104084757815949
+                }
+            ], 
+            "name": "Topic:4", 
+            "size": 5
+        }, 
+        {
+            "children": [
+                {
+                    "group": 5, 
+                    "name": "drug", 
+                    "size": 0.012549544716340844
+                }, 
+                {
+                    "group": 5, 
+                    "name": "peptide", 
+                    "size": 0.010871505483297185
+                }, 
+                {
+                    "group": 5, 
+                    "name": "transport", 
+                    "size": 0.0095582573878717162
+                }, 
+                {
+                    "group": 5, 
+                    "name": "process", 
+                    "size": 0.0094123409328244426
+                }, 
+                {
+                    "group": 5, 
+                    "name": "direct", 
+                    "size": 0.0080990928373989718
+                }, 
+                {
+                    "group": 5, 
+                    "name": "nanoparticles", 
+                    "size": 0.0079531763823516965
+                }, 
+                {
+                    "group": 5, 
+                    "name": "nose", 
+                    "size": 0.0070776776520680498
+                }, 
+                {
+                    "group": 5, 
+                    "name": "neuropeptides", 
+                    "size": 0.0069317611970207754
+                }, 
+                {
+                    "group": 5, 
+                    "name": "human", 
+                    "size": 0.0064940118318789512
+                }
+            ], 
+            "name": "Topic:5", 
+            "size": 3
+        }, 
+        {
+            "children": [
+                {
+                    "group": 6, 
+                    "name": "cell", 
+                    "size": 0.026331268487237641
+                }, 
+                {
+                    "group": 6, 
+                    "name": "vaccine", 
+                    "size": 0.014599805583589771
+                }, 
+                {
+                    "group": 6, 
+                    "name": "antigen", 
+                    "size": 0.012383862590678509
+                }, 
+                {
+                    "group": 6, 
+                    "name": "response", 
+                    "size": 0.010233094391676398
+                }, 
+                {
+                    "group": 6, 
+                    "name": "mouse", 
+                    "size": 0.0096465212464940057
+                }, 
+                {
+                    "group": 6, 
+                    "name": "lns", 
+                    "size": 0.0089947733074024587
+                }, 
+                {
+                    "group": 6, 
+                    "name": "tumor", 
+                    "size": 0.0085385497500383746
+                }, 
+                {
+                    "group": 6, 
+                    "name": "immune", 
+                    "size": 0.0078868018109468259
+                }, 
+                {
+                    "group": 6, 
+                    "name": "eenl", 
+                    "size": 0.0066484807266728842
+                }
+            ], 
+            "name": "Topic:6", 
+            "size": 4
+        }, 
+        {
+            "children": [
+                {
+                    "group": 7, 
+                    "name": "afm", 
+                    "size": 0.004573978258188784
+                }, 
+                {
+                    "group": 7, 
+                    "name": "cell", 
+                    "size": 0.0044292412713465342
+                }, 
+                {
+                    "group": 7, 
+                    "name": "drug", 
+                    "size": 0.0031845031845031849
+                }, 
+                {
+                    "group": 7, 
+                    "name": "channel", 
+                    "size": 0.0030397661976609342
+                }, 
+                {
+                    "group": 7, 
+                    "name": "interaction", 
+                    "size": 0.0029818714029240345
+                }, 
+                {
+                    "group": 7, 
+                    "name": "image", 
+                    "size": 0.0022871338660812347
+                }, 
+                {
+                    "group": 7, 
+                    "name": "force", 
+                    "size": 0.0020266072897651847
+                }, 
+                {
+                    "group": 7, 
+                    "name": "therapeutic", 
+                    "size": 0.0019976598923967348
+                }, 
+                {
+                    "group": 7, 
+                    "name": "cytokine", 
+                    "size": 0.0017950281108175842
+                }
+            ], 
+            "name": "Topic:7", 
+            "size": 1
+        }, 
+        {
+            "children": [
+                {
+                    "group": 8, 
+                    "name": "usepackage", 
+                    "size": 0.035542138334563336
+                }, 
+                {
+                    "group": 8, 
+                    "name": "model", 
+                    "size": 0.012884881617880997
+                }, 
+                {
+                    "group": 8, 
+                    "name": "data", 
+                    "size": 0.01138349713665506
+                }, 
+                {
+                    "group": 8, 
+                    "name": "document", 
+                    "size": 0.01042807064860219
+                }, 
+                {
+                    "group": 8, 
+                    "name": "method", 
+                    "size": 0.0080804512779579975
+                }, 
+                {
+                    "group": 8, 
+                    "name": "parameter", 
+                    "size": 0.0076709827830781958
+                }, 
+                {
+                    "group": 8, 
+                    "name": "estimate", 
+                    "size": 0.0066882583953666733
+                }, 
+                {
+                    "group": 8, 
+                    "name": "individual", 
+                    "size": 0.0063879814991214855
+                }, 
+                {
+                    "group": 8, 
+                    "name": "missing", 
+                    "size": 0.0061968962015109107
+                }
+            ], 
+            "name": "Topic:8", 
+            "size": 4
+        }, 
+        {
+            "children": [
+                {
+                    "group": 9, 
+                    "name": "study", 
+                    "size": 0.027029242655932744
+                }, 
+                {
+                    "group": 9, 
+                    "name": "drug", 
+                    "size": 0.024798107793647311
+                }, 
+                {
+                    "group": 9, 
+                    "name": "effect", 
+                    "size": 0.013897420323624199
+                }, 
+                {
+                    "group": 9, 
+                    "name": "based", 
+                    "size": 0.01281372624765699
+                }, 
+                {
+                    "group": 9, 
+                    "name": "target", 
+                    "size": 0.012176259144146865
+                }, 
+                {
+                    "group": 9, 
+                    "name": "development", 
+                    "size": 0.011538792040636745
+                }, 
+                {
+                    "group": 9, 
+                    "name": "potential", 
+                    "size": 0.010582591385371556
+                }, 
+                {
+                    "group": 9, 
+                    "name": "clinical", 
+                    "size": 0.0094351505990533345
+                }, 
+                {
+                    "group": 9, 
+                    "name": "used", 
+                    "size": 0.0093076571783513116
+                }
+            ], 
+            "name": "Topic:9", 
+            "size": 5
+        }
+    ]
+}

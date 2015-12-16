@@ -4,7 +4,7 @@
 		module="simple-project_2.10"
 		revision="1.0"
 		status="integration"
-		publication="20151118105243"
+		publication="20151130235516"
 	>
 		<description>
 		Simple Project
@@ -37,5 +37,6 @@
 		<dependency org="org.apache.spark" name="spark-core_2.10" rev="1.5.2" conf="compile->default(compile)"/>
 		<dependency org="org.apache.spark" name="spark-mllib_2.10" rev="1.5.2" conf="compile->default(compile)"/>
 		<dependency org="com.datastax.spark" name="spark-cassandra-connector_2.10" rev="1.4.0-M3" conf="compile->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-sql_2.10" rev="1.5.2" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>
